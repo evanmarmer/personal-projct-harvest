@@ -4,7 +4,8 @@ function App() {
 
   return (
     <>
-      
+      <header>Harvest</header>
+      <button>Add Harvest</button>
     </>
   )
 }
