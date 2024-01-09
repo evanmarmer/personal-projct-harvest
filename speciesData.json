@@ -1,0 +1,7 @@
+{
+    "bigGame": ["Elk", "Antelope", "Moose"],
+    "trophyGame": ["Black Bear", "Gray Wolf", "Mountain Lion"],
+    "uplandBird": ["Blue Grouse", "Chukar", "Pheasant"],
+    "smallGame": ["Fox Squirrel", "Snowshoe Hare", "Cottontail Rabbit"],
+    "migratoryGame": ["Mallard", "Redhead", "Northern Pintail"]   
+}
