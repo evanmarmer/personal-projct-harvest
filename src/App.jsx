@@ -21,10 +21,6 @@ function App() {
       </ul>
       <Outlet />
       </header>
-      {/* <div>
-      <button>Create</button>
-      <p>No Posts Yet</p>
-      </div> */}
     </>
   )
 }

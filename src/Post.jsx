@@ -1,22 +1,25 @@
 
 
-export default function Row(props){
-    
-
+export default function Post(props){
     
     return (
         <>
-           <table>
-           <thead>
-          <tr>
-            <th>Photo placeholder</th>
-            <th>Species</th>
-            <th>Harvested</th>
-            <th>Lifetime Harvest</th>
-            <th>Story placeholder</th>
-          </tr>
-        </thead>
-           </table>
+        <div class= 'card'>
+            <div class= 'card-pic'>
+                <img class= 'card-img' src='blahhhhhhh'/>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Species</th>
+                            <th>Harvested</th>
+                            <th>Lifetime Harvest</th>
+                        </tr>
+                    </thead>
+                </table>
+                <p>Story</p>
+            </div>
+
+        </div>
         </>
     )
 }

@@ -1,4 +1,16 @@
+import './Tracker.css'
 
 export default function Tracker(){
-    // console.log('hi mom')
+    return (
+        <>
+           <table>
+           <thead>
+          <tr>
+            <th>Species</th>
+            <th>Lifetime Harvest</th>
+          </tr>
+        </thead>
+           </table>
+        </>
+    )
 }
