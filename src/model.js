@@ -9,7 +9,7 @@ class Users extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
   }
-}
+} 
 
 Users.init(
     {
@@ -113,12 +113,14 @@ class HuntsSpeciesHarvests extends Model {
 Users.hasMany(Hunts, { foreignKey: 'userId' });
 Hunts.belongsTo(Users, { foreignKey: 'userId' });
 
-HuntsSpeciesHarvests.hasMany(Hunts, { foreignKey: 'huntsId' });
-Hunts.belongsTo(HuntsSpeciesHarvests, { foreignKey: 'huntsId' });
+// HuntsSpeciesHarvests.belongsTo(Hunts, { foreignKey: 'huntsId' });
+// Hunts.hasMany(HuntsSpeciesHarvests, { foreignKey: 'huntsId' });
 
-HuntsSpeciesHarvests.hasMany(Species, { foreignKey: 'speciesId' });
-Species.belongsTo(HuntsSpeciesHarvests, { foreignKey: 'speciesId' });
+// HuntsSpeciesHarvests.belongsTo(Species, { foreignKey: 'speciesId' });
+// Species.hasMany(HuntsSpeciesHarvests, { foreignKey: 'speciesId' });
 
+Hunts.belongsToMany(Species, { through: 'HuntsSpeciesHarvests' });
+Species.belongsToMany(Hunts, { through: 'HuntsSpeciesHarvests' });
 
 export default sequelize;
-export { sequelize, Users, Hunts };
+export { sequelize, Users, Hunts, Species };
