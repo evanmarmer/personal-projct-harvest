@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <header>
-        Harvest
+        <div>Harvest</div>
         <ul>
         <li>
           <Link to="/">Home</Link>
@@ -19,8 +19,8 @@ function App() {
           <Link to="/tracker">Tracker</Link>
         </li>
       </ul>
-      <Outlet />
       </header>
+      <Outlet/>
     </>
   )
 }

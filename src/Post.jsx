@@ -18,7 +18,6 @@ export default function Post(props){
                 </table>
                 <p>Story</p>
             </div>
-
         </div>
         </>
     )

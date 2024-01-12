@@ -1,17 +1,14 @@
 header {
     text-align: left;
-    font-size:30px;
-    margin-bottom: 40px
-
+    font-size:20px;
+    margin-bottom: 40px;
   }
 
-  button {
-    margin-left: auto;
-    margin-right: auto;
-    display: block; 
-    margin-bottom: 40px
+header * {
+  display: inline;
 }
-  
-p {
-    text-align: center;
+
+header li {
+  margin: 20px;
 }
+
