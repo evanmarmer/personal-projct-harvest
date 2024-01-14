@@ -1,7 +1,17 @@
 import App from './App.jsx';
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 export default function Home(){
+    const [harvestPosts, setHarvestPosts] = useState([])
+    console.log(harvestPosts)
+
+    useEffect(() => {
+      axios.get('/posts')
+      .then((response) => {
+          setHarvestPosts(response.data)
+      })
+  }, [])
    
     function onNewPostClickHandler() {
         setIsMakingNewPost(true)
@@ -12,6 +22,17 @@ export default function Home(){
         <div>
             <button onClick={onNewPostClickHandler}>New Harvest</button>
             <p>No Posts Yet</p>
+            <div>
+            {/* { harvestPosts.map((postsArr) => {
+              return <Post
+                  species={postsArr.species}
+                  harvested={postsArr.harvested}
+                  story={postsArr.story}
+                  setHarvestPosts={setHarvestPosts}
+                />
+               })
+            } */}
+            </div>
         </div>
         <form>
             {/* <label for="img">Place holder for image</label>
@@ -28,3 +49,4 @@ export default function Home(){
         </>
     )
 }
+

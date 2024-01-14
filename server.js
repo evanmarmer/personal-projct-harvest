@@ -14,7 +14,6 @@ app.get('/species', async (req, res) => {
 
 app.get('/posts', async (req, res) => {
     let hunts = await Hunts.findAll()
-    // let huntsSpecies = await hunts.getSpecies()
 
     for (let i = 0; i < hunts.length; i++) {
         hunts[i].dataValues.species = await hunts[i].getSpecies()

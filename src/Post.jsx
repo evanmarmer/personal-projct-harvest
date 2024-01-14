@@ -1,4 +1,4 @@
-
+import Home from './Home.jsx';
 
 export default function Post(props){
     
