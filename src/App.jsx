@@ -6,14 +6,8 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 function App() {
-//   const [harvestPosts, setHarvestPosts] = useState([])
 
-//   useEffect(() => {
-//     axios.get('/posts')
-//     .then((response) => {
-//         setHarvestPosts(response.data)
-//     })
-// }, [])
+ 
 
   return (
     <>

@@ -91,6 +91,7 @@ await huntsResults[0].addSpecies(speciesResults[0], { through: { harvested: 3}})
 await huntsResults[0].addSpecies(speciesResults[1], { through: { harvested: 4}})
 
 await huntsResults[1].addSpecies(speciesResults[3], { through: { harvested: 2}})
+await huntsResults[1].addSpecies(speciesResults[0], { through: { harvested: 2}})
 
 await sequelize.close()
 
