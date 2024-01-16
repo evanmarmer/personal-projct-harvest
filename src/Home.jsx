@@ -2,11 +2,16 @@ import App from './App.jsx';
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Post from './Post.jsx';
+import './Home.css';
+
 
 export default function Home(){
     const [harvestPosts, setHarvestPosts] = useState([])
 
     const [totalHarvest, setTotalHArvest] = useState({})
+
+    const [isMakingPost, setIsMakingPost] = useState(false)
+
 
     useEffect(() => {
       axios.get('/posts')
@@ -32,14 +37,25 @@ export default function Home(){
     }, [])
    
     function onNewPostClickHandler() {
-        setIsMakingNewPost(true)
+        setIsMakingPost(true)
     } 
+
+    function onSaveClickHandler() {
+        let maBod = {
+            ,
+        }
+        axios.post('/post')
+        .then((response) => {
+            setSpeciesData(response.data)
+            setIsMakingPost(false)
+            setSpeciesInput('')
+        })
+      }
     
     return (
         <>
         <div>
             <button onClick={onNewPostClickHandler}>New Harvest</button>
-            <p>No Posts Yet</p>
             <div>
             { harvestPosts.map((hunt) => {
               return <Post
@@ -52,18 +68,26 @@ export default function Home(){
             }
             </div>
         </div>
-        <form>
-            {/* <label for="img">Place holder for image</label>
-            <input type="image" id="img"/> */}
-            <label htmlFor="species">Species</label>
-            <input type="text" id="species"/><br/>
-            <label htmlFor="harvested">Harvested</label>
-            <input type="text" id="harvested"/><br/>
-            <span>Lifetime Harvest</span>
-            <span> 0 </span><br/>
-            <button>Add Species</button><br/>
-            <p>Story</p>
-        </form>
+        {isMakingPost &&
+        <div className="modal">
+            <div className="modal-box">
+             <form>
+                 {/* <label for="img">Place holder for image</label>
+                <input type="image" id="img"/> */}
+                <label htmlFor="species">Species</label>
+                <input type="text" id="species"/><br/>
+                <label htmlFor="harvested">Harvested</label>
+                <input type="text" id="harvested"/><br/>
+                <label htmlFor="story">story</label>
+                <input type="text" id="story"/><br/>
+                {/* these two below are different ways of doing the same thing */}
+                <button onClick={onSaveClickHandler}>Create Post</button>
+                <button onClick={()=> setIsMakingPost(false)}>exit</button>
+            </form>
+            </div>
+            <div className="modal-background"></div>
+        </div>
+        }
         </>
     )
 }

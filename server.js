@@ -22,7 +22,7 @@ app.get('/posts', async (req, res) => {
 })
 
 app.post('/post', async (req, res) => {
-
+    
 })
 
 
