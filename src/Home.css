@@ -1,6 +1,4 @@
-div {
-    display: flex;
-    align-items: center;
+.posts {
     border: 1px solid red;
 }
 

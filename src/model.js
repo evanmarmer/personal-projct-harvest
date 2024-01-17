@@ -3,7 +3,8 @@ import url from 'url';
 import util from 'util';
 import connectToDB from './db.js';
 
-const sequelize = new Sequelize('postgresql:///hunt_app');
+const sequelize = new Sequelize('postgresql:///hunt_app', {logging: false});
+
 
 class Users extends Model {
   [util.inspect.custom]() {

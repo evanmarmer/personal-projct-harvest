@@ -1,6 +1,6 @@
 import express from 'express';
 import ViteExpress from 'vite-express';
-import { Species, Hunts } from './src/model.js'
+import { Species, Hunts, Users } from './src/model.js'
 
 let app = express();
 
@@ -22,12 +22,21 @@ app.get('/posts', async (req, res) => {
 })
 
 app.post('/post', async (req, res) => {
-    let newSpecies = req.body.speciesInput
-    let newHarvestNum = req.body.harvestInput
-    let newStory = req.body.storyInput
-
+    let newSpecies = req.body.species
+    let newHarvestNum = req.body.harvest
+    let newStory = req.body.story
+    let userId = 1
+    console.log(newSpecies)
+    
+    
     //sqlize shiz
+    // console.log(user)
+    const story = await Hunts.create({story: newStory, userId: userId})
+    // console.log(story)
+    // console.log(newStory)
+    const harvestedSpecies = await Species.findAll({where: { species: newSpecies}})
 
+    await story.setSpecies(harvestedSpecies, { through: { harvested: newHarvestNum}})
 
     let hunts = await Hunts.findAll()
 

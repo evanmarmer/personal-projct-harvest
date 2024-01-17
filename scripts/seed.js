@@ -71,6 +71,7 @@ await sequelize.sync({force: true})
 
 let speciesResults = await Species.bulkCreate(species);
 
+
 let huntsResults = await Hunts.bulkCreate([
     {
         story: 'This was my best hunt everl',

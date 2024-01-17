@@ -7,10 +7,11 @@ import './Home.css';
 
 export default function Home(){
     const [harvestPosts, setHarvestPosts] = useState([])
-
-    const [totalHarvest, setTotalHArvest] = useState({})
-
+    const [totalHarvest, setTotalHarvest] = useState({})
     const [isMakingPost, setIsMakingPost] = useState(false)
+    const [speciesInput, setSpeciesInput] = useState('')
+    const [harvestInput, setHarvestInput] = useState('')
+    const [storyInput, setStoryInput] = useState('')
 
 
     useEffect(() => {
@@ -32,7 +33,7 @@ export default function Home(){
                 }
             }
         }
-          setTotalHArvest(sumObj)
+          setTotalHarvest(sumObj)
       })
     }, [])
    
@@ -40,16 +41,15 @@ export default function Home(){
         setIsMakingPost(true)
     } 
 
-    const [speciesInput, setSpeciesInput] = useState('')
-    const [harvestInput, setHarvestInput] = useState('')
-    const [storyInput, setStoryInput] = useState('')
 
-    function onSaveClickHandler() {
+    function onSaveClickHandler(e) {
+        e.preventDefault()
         let maBod = {
             species: speciesInput,
             harvest: harvestInput,
-            story: storyInput
+            story: storyInput,
         }
+        console.log()
         axios.post('/post', maBod)
         .then((response) => {
            setHarvestPosts(response.data)
@@ -62,8 +62,8 @@ export default function Home(){
     
     return (
         <>
-        <div>
-            <button onClick={onNewPostClickHandler}>New Harvest</button>
+        <div className="posts">
+            <button className="newPostBtn" onClick={onNewPostClickHandler}>New Harvest</button>
             <div>
             { harvestPosts.map((hunt) => {
               return <Post
@@ -80,14 +80,12 @@ export default function Home(){
         <div className="modal">
             <div className="modal-box">
              <form>
-                 {/* <label for="img">Place holder for image</label>
-                <input type="image" id="img"/> */}
                 <label htmlFor="species">Species</label>
                 <input type="text" value={speciesInput} onChange={(e) => setSpeciesInput(e.target.value)} id="species"/><br/>
                 <label htmlFor="harvested">Harvested</label>
                 <input type="text" value={harvestInput} onChange={(e) => setHarvestInput(e.target.value)} id="harvested"/><br/>
-                <label htmlFor="story">story</label>
-                <input type="text" story={storyInput} onChange={(e) => setStoryInput(e.target.value)} id="story"/><br/>
+                <label htmlFor="story">Story</label>
+                <input type="text" value={storyInput} onChange={(e) => setStoryInput(e.target.value)} id="story"/><br/>
                 {/* these two below are different ways of doing the same thing */}
                 <button onClick={onSaveClickHandler}>Create Post</button>
                 <button onClick={()=> setIsMakingPost(false)}>exit</button>
