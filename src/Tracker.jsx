@@ -5,16 +5,15 @@ import axios from 'axios'
 
 export default function Tracker(){
 
-  const [harvestPosts, setHarvestPosts] = useState([])
   const [totalHarvest, setTotalHarvest] = useState({})
 
   useEffect(() => {
     axios.get('/posts')
     .then((response) => {
-      setHarvestPosts(response.data)
-     
+     console.log(response.data)
       let sumObj = {}
         for (let i = 0; i < response.data.length; i++) {
+          // console.log(sumObj)
             for (let k = 0; k < response.data[i].species.length; k++){
                 // console.log(response.data[i].species[k].HuntsSpeciesHarvests.harvested)
                 // console.log(response.data[i].species[k].species)
@@ -22,7 +21,8 @@ export default function Tracker(){
                 if (sumObj[response.data[i].species[k].species]){
                     sumObj[response.data[i].species[k].species] += response.data[i].species[k].HuntsSpeciesHarvests.harvested
                 //if it doesnt exist create it
-                } else {
+                } 
+                else {
                     sumObj[response.data[i].species[k].species] = response.data[i].species[k].HuntsSpeciesHarvests.harvested
                 }
             }
@@ -41,10 +41,10 @@ export default function Tracker(){
               </tr>
             </thead>
             <tbody>
-            { harvestPosts.map((hunt) => {
+            { Object.entries(totalHarvest).map((rowTuple) => {
               return <TrackerRow
-                  species={hunt.species}
-                  totalHarvest={totalHarvest}
+                  species={rowTuple[0]}
+                  totalHarvest={rowTuple[1]}
                 />
                })
           }
