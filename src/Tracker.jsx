@@ -1,16 +1,33 @@
 import './Tracker.css'
 import TrackerRow from './TrackerRow.jsx'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 export default function Tracker(){
 
-  const [harvestInfo, setHarvestInfo] = useState([])
-  const [totalHarvest, setTotalHarvest] = useState([])
+  const [harvestPosts, setHarvestPosts] = useState([])
+  const [totalHarvest, setTotalHarvest] = useState({})
 
   useEffect(() => {
     axios.get('/posts')
     .then((response) => {
-      setHarvestInfo(response.data)
-      
+      setHarvestPosts(response.data)
+     
+      let sumObj = {}
+        for (let i = 0; i < response.data.length; i++) {
+            for (let k = 0; k < response.data[i].species.length; k++){
+                // console.log(response.data[i].species[k].HuntsSpeciesHarvests.harvested)
+                // console.log(response.data[i].species[k].species)
+                //if it exists add to it
+                if (sumObj[response.data[i].species[k].species]){
+                    sumObj[response.data[i].species[k].species] += response.data[i].species[k].HuntsSpeciesHarvests.harvested
+                //if it doesnt exist create it
+                } else {
+                    sumObj[response.data[i].species[k].species] = response.data[i].species[k].HuntsSpeciesHarvests.harvested
+                }
+            }
+        }
+          setTotalHarvest(sumObj)
     })
   }, [])
 
@@ -24,11 +41,10 @@ export default function Tracker(){
               </tr>
             </thead>
             <tbody>
-            { harvestInfo.map((hunt) => {
+            { harvestPosts.map((hunt) => {
               return <TrackerRow
                   species={hunt.species}
                   totalHarvest={totalHarvest}
-                  setHarvestInfo={setHarvestInfo}
                 />
                })
           }
