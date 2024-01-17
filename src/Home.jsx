@@ -40,15 +40,23 @@ export default function Home(){
         setIsMakingPost(true)
     } 
 
+    const [speciesInput, setSpeciesInput] = useState('')
+    const [harvestInput, setHarvestInput] = useState('')
+    const [storyInput, setStoryInput] = useState('')
+
     function onSaveClickHandler() {
         let maBod = {
-            ,
+            species: speciesInput,
+            harvest: harvestInput,
+            story: storyInput
         }
-        axios.post('/post')
+        axios.post('/post', maBod)
         .then((response) => {
-            setSpeciesData(response.data)
+           setHarvestPosts(response.data)
             setIsMakingPost(false)
             setSpeciesInput('')
+            setHarvestInput('')
+            setStoryInput('')
         })
       }
     
@@ -75,11 +83,11 @@ export default function Home(){
                  {/* <label for="img">Place holder for image</label>
                 <input type="image" id="img"/> */}
                 <label htmlFor="species">Species</label>
-                <input type="text" id="species"/><br/>
+                <input type="text" value={speciesInput} onChange={(e) => setSpeciesInput(e.target.value)} id="species"/><br/>
                 <label htmlFor="harvested">Harvested</label>
-                <input type="text" id="harvested"/><br/>
+                <input type="text" value={harvestInput} onChange={(e) => setHarvestInput(e.target.value)} id="harvested"/><br/>
                 <label htmlFor="story">story</label>
-                <input type="text" id="story"/><br/>
+                <input type="text" story={storyInput} onChange={(e) => setStoryInput(e.target.value)} id="story"/><br/>
                 {/* these two below are different ways of doing the same thing */}
                 <button onClick={onSaveClickHandler}>Create Post</button>
                 <button onClick={()=> setIsMakingPost(false)}>exit</button>

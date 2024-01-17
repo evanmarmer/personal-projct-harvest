@@ -22,7 +22,19 @@ app.get('/posts', async (req, res) => {
 })
 
 app.post('/post', async (req, res) => {
-    
+    let newSpecies = req.body.speciesInput
+    let newHarvestNum = req.body.harvestInput
+    let newStory = req.body.storyInput
+
+    //sqlize shiz
+
+
+    let hunts = await Hunts.findAll()
+
+    for (let i = 0; i < hunts.length; i++) {
+        hunts[i].dataValues.species = await hunts[i].getSpecies()
+    }
+    res.send(hunts)
 })
 
 
