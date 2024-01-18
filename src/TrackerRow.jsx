@@ -1,8 +1,5 @@
 export default function trackerRow(props){
     
-
-   
-
         return (
             <>
              <tr>

@@ -22,10 +22,6 @@ const species = [
         gameType: 'trophyGame',
     },
     {
-        species: "Grey Wolf",
-        gameType: 'trophyGame',
-    },
-    {
         species: "Mountain Lion",
         gameType: 'trophyGame',
     },

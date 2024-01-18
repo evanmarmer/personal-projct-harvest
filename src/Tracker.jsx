@@ -10,7 +10,7 @@ export default function Tracker(){
   useEffect(() => {
     axios.get('/posts')
     .then((response) => {
-     console.log(response.data)
+    //  console.log(response.data)
       let sumObj = {}
         for (let i = 0; i < response.data.length; i++) {
           // console.log(sumObj)

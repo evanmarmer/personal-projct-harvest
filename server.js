@@ -1,6 +1,6 @@
 import express from 'express';
 import ViteExpress from 'vite-express';
-import { Species, Hunts, Users } from './src/model.js'
+import { Species, Hunts, Users, HuntsSpeciesHarvests } from './src/model.js'
 
 let app = express();
 
@@ -26,7 +26,7 @@ app.post('/post', async (req, res) => {
     let newHarvestNum = req.body.harvest
     let newStory = req.body.story
     let userId = 1
-    console.log(newSpecies)
+    // console.log(newSpecies)
     
     
     //sqlize shiz
@@ -44,8 +44,64 @@ app.post('/post', async (req, res) => {
         hunts[i].dataValues.species = await hunts[i].getSpecies()
     }
     res.send(hunts)
+
 })
 
+app.delete('/post/:post', async (req, res) => {
+    let huntId = req.params.post
+    console.log(huntId)
 
+        const deleteMe = await Hunts.findAll({where: { id: huntId}})
+        console.log(deleteMe[0])
+
+        await deleteMe[0].destroy()
+
+        let hunts = await Hunts.findAll()
+
+        for (let i = 0; i < hunts.length; i++) {
+            hunts[i].dataValues.species = await hunts[i].getSpecies()
+        }
+    
+    res.status(200).send(hunts)
+  })
+
+  app.put('/edit-post/:species/:harvested/:story/:huntId', async (req, res) => {
+    //   console.log(req.params.huntId)
+    //   console.log(req.params)
+    //   console.log(+req.params.harvested)
+    //   console.log(req.params.story)
+
+      
+    let editedSpecies = req.params.species
+    let editedHarvested = +req.params.harvested
+    let editedStory = req.params.story
+    let huntId = +req.params.huntId
+    console.log(editedSpecies)
+    
+    let speciesInfo = await Species.findAll({where: {species: editedSpecies}}) 
+    console.log(speciesInfo)
+    
+    // await Hunts.update({story: editedStory},{
+    //     where: {
+    //         id: huntId
+    //     },
+    // })
+    
+    //using editedSpecies, find the Species object that correcsponds to it, save it to a variable
+
+    //then in the HuntSpeciesHarvest.update, you'll reference the above variable's id property for speciesId
+
+    await HuntsSpeciesHarvests.update({speciesId: speciesInfo.id, harvested: editedHarvested},{
+        where: {
+            harvested: 
+            speciesId: 
+        }
+    })
+
+    
+    let hunts = await Hunts.findAll()
+
+    res.status(200).send(hunts)
+})
 
 ViteExpress.listen(app, 5173, () => {console.log('listening on 5173')})

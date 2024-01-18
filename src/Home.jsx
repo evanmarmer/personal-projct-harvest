@@ -12,6 +12,28 @@ export default function Home(){
     const [speciesInput, setSpeciesInput] = useState('')
     const [harvestInput, setHarvestInput] = useState('')
     const [storyInput, setStoryInput] = useState('')
+    
+
+    // console.log(harvestPosts)
+
+    function createTotalHarvestObjOutOfPosts(posts) {
+        let sumObj = {}
+        for (let i = 0; i < posts.length; i++) {
+            for (let k = 0; k < posts[i].species.length; k++){
+                // console.log(response.data[i].species[k].HuntsSpeciesHarvests.harvested)
+                // console.log(response.data[i].species[k].species)
+                //if it exists add to it
+                if (sumObj[posts[i].species[k].species]){
+                    sumObj[posts[i].species[k].species] += posts[i].species[k].HuntsSpeciesHarvests.harvested
+                //if it doesnt exist create it
+                } else {
+                    sumObj[posts[i].species[k].species] = posts[i].species[k].HuntsSpeciesHarvests.harvested
+                }
+            }
+        }
+    
+        return sumObj
+    }
 
 
     useEffect(() => {
@@ -19,21 +41,7 @@ export default function Home(){
       .then((response) => {
           setHarvestPosts(response.data)
         
-          let sumObj = {}
-        for (let i = 0; i < response.data.length; i++) {
-            for (let k = 0; k < response.data[i].species.length; k++){
-                // console.log(response.data[i].species[k].HuntsSpeciesHarvests.harvested)
-                // console.log(response.data[i].species[k].species)
-                //if it exists add to it
-                if (sumObj[response.data[i].species[k].species]){
-                    sumObj[response.data[i].species[k].species] += response.data[i].species[k].HuntsSpeciesHarvests.harvested
-                //if it doesnt exist create it
-                } else {
-                    sumObj[response.data[i].species[k].species] = response.data[i].species[k].HuntsSpeciesHarvests.harvested
-                }
-            }
-        }
-          setTotalHarvest(sumObj)
+          setTotalHarvest(createTotalHarvestObjOutOfPosts(response.data))
       })
     }, [])
    
@@ -49,9 +57,10 @@ export default function Home(){
             harvest: harvestInput,
             story: storyInput,
         }
-        console.log()
+    
         axios.post('/post', maBod)
         .then((response) => {
+            setTotalHarvest(createTotalHarvestObjOutOfPosts(response.data))
            setHarvestPosts(response.data)
             setIsMakingPost(false)
             setSpeciesInput('')
@@ -71,6 +80,15 @@ export default function Home(){
                   species={hunt.species}
                   story={hunt.story}
                   totalHarvest={totalHarvest}
+                  harvestPosts={harvestPosts}
+                  setHarvestPosts={setHarvestPosts}
+                  huntId= {hunt.id}
+                  setSpeciesInput={setSpeciesInput}
+                  setHarvestInput={setHarvestInput}
+                  setStoryInput={setStoryInput}
+                  speciesInput={speciesInput}
+                  harvestInput={harvestInput}
+                  storyInput={storyInput}
                 />
                })
             }
@@ -97,4 +115,5 @@ export default function Home(){
         </>
     )
 }
+
 

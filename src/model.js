@@ -99,6 +99,7 @@ class HuntsSpeciesHarvests extends Model {
       species: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       gameType: {
         type: DataTypes.STRING,
@@ -124,4 +125,4 @@ Hunts.belongsToMany(Species, { through: 'HuntsSpeciesHarvests' });
 Species.belongsToMany(Hunts, { through: 'HuntsSpeciesHarvests' });
 
 export default sequelize;
-export { sequelize, Users, Hunts, Species };
+export { sequelize, Users, Hunts, Species,HuntsSpeciesHarvests };
