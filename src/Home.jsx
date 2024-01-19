@@ -16,7 +16,7 @@ export default function Home(){
 
     // console.log(harvestPosts)
 
-    function createTotalHarvestObjOutOfPosts(posts) {
+    function createTotalHarvestObjOutOfPosts(posts) { 
         let sumObj = {}
         for (let i = 0; i < posts.length; i++) {
             for (let k = 0; k < posts[i].species.length; k++){
@@ -68,30 +68,31 @@ export default function Home(){
             setStoryInput('')
         })
       }
-    
-    return (
-        <>
+      
+     console.log(harvestPosts);
+      return (
+          <>
         <div className="posts">
             <button className="newPostBtn" onClick={onNewPostClickHandler}>New Harvest</button>
             <div>
             { harvestPosts.map((hunt) => {
-              return <Post
+                return <Post
                 key = {hunt.id}
-                  species={hunt.species}
-                  story={hunt.story}
-                  totalHarvest={totalHarvest}
-                  harvestPosts={harvestPosts}
-                  setHarvestPosts={setHarvestPosts}
-                  huntId= {hunt.id}
-                  setSpeciesInput={setSpeciesInput}
-                  setHarvestInput={setHarvestInput}
-                  setStoryInput={setStoryInput}
-                  speciesInput={speciesInput}
-                  harvestInput={harvestInput}
-                  storyInput={storyInput}
+                species={hunt.species}
+                story={hunt.story}
+                totalHarvest={totalHarvest}
+                harvestPosts={harvestPosts}
+                setHarvestPosts={setHarvestPosts}
+                huntId= {hunt.id}
+                setSpeciesInput={setSpeciesInput}
+                setHarvestInput={setHarvestInput}
+                setStoryInput={setStoryInput}
+                speciesInput={speciesInput}
+                harvestInput={harvestInput}
+                storyInput={storyInput}
                 />
-               })
-            }
+            })
+        }
             </div>
         </div>
         {isMakingPost &&

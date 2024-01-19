@@ -6,6 +6,9 @@ let app = express();
 
 app.use(express.json())
 
+
+
+
 app.get('/species', async (req, res) => {
     const speciesArr = await Species.findAll();
     res.send(speciesArr)
@@ -79,13 +82,13 @@ app.delete('/post/:post', async (req, res) => {
     console.log(editedSpecies)
     
     let speciesInfo = await Species.findAll({where: {species: editedSpecies}}) 
-    console.log(speciesInfo)
+    // console.log(speciesInfo)
     
-    // await Hunts.update({story: editedStory},{
-    //     where: {
-    //         id: huntId
-    //     },
-    // })
+    await Hunts.update({story: editedStory},{
+        where: {
+            id: huntId
+        },
+    })
     
     //using editedSpecies, find the Species object that correcsponds to it, save it to a variable
 
@@ -93,13 +96,15 @@ app.delete('/post/:post', async (req, res) => {
 
     await HuntsSpeciesHarvests.update({speciesId: speciesInfo.id, harvested: editedHarvested},{
         where: {
-            harvested: 
-            speciesId: 
+           huntId 
         }
     })
 
     
     let hunts = await Hunts.findAll()
+    for (let i = 0; i < hunts.length; i++) {
+        hunts[i].dataValues.species = await hunts[i].getSpecies()
+    }
 
     res.status(200).send(hunts)
 })

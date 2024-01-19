@@ -15,12 +15,13 @@ export default function Post(props){
     }
     
 const speciesData = props.species.map(speciesObj => (
-        <tr key= {speciesObj.id}>
+    <tr key= {speciesObj.id}>
             <td>{ speciesObj.species }</td>
             <td>{ speciesObj.HuntsSpeciesHarvests.harvested }</td>
             <td>{props.totalHarvest[speciesObj.species]}</td>
         </tr>
     ));
+    
 
     
     async function handleDeleteClick() {
@@ -34,11 +35,12 @@ const speciesData = props.species.map(speciesObj => (
         e.preventDefault()
         axios.put(`/edit-post/${props.speciesInput}/${props.harvestInput}/${props.storyInput}/${props.huntId}`)
         .then((response) => {
-            props.setHarvestPosts(response.data)
+            // console.log(response.data);
             setIsEditing(false)
+            props.setHarvestPosts(response.data)
         })
     }
-    
+    console.log(props.species)
     return (
         <>
         { isEditing 
