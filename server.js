@@ -79,7 +79,7 @@ app.delete('/post/:post', async (req, res) => {
     let editedHarvested = +req.params.harvested
     let editedStory = req.params.story
     let huntId = +req.params.huntId
-    console.log(editedSpecies)
+    // console.log(editedSpecies)
     
     let speciesInfo = await Species.findAll({where: {species: editedSpecies}}) 
     // console.log(speciesInfo)

@@ -3,8 +3,9 @@
 }
 
 form {
-    display: flex;
+    /* display: flex; */
     align-items: center;
+    border: 1px solid red;
 }
 
 .modal {

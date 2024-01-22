@@ -8,7 +8,7 @@ export default function Post(props){
     let [isEditing, setIsEditing] = useState(false)
 
     function handleEditClick(){
-        props.setSpeciesInput(props.species[0].species)
+        props.setSpeciesHarvestInput(props.species[0].species)
         props.setHarvestInput(props.species[0].HuntsSpeciesHarvests.harvested)
         props.setStoryInput(props.story)
         setIsEditing(!isEditing)
@@ -40,7 +40,7 @@ const speciesData = props.species.map(speciesObj => (
             props.setHarvestPosts(response.data)
         })
     }
-    console.log(props.species)
+    // console.log(props.species)
     return (
         <>
         { isEditing 
