@@ -25,21 +25,26 @@ app.get('/posts', async (req, res) => {
 })
 
 app.post('/post', async (req, res) => {
-    let newSpecies = req.body.species
-    let newHarvestNum = req.body.harvest
+    console.log(req.body.speciesHarvest)
+    // let newSpecies = req.body.species
+    // let newHarvestNum = req.body.harvest
+    let newSpeciesHarvestNum = req.body.speciesHarvest
     let newStory = req.body.story
     let userId = 1
-    // console.log(newSpecies)
     
-    
-    //sqlize shiz
-    // console.log(user)
     const story = await Hunts.create({story: newStory, userId: userId})
     // console.log(story)
     // console.log(newStory)
-    const harvestedSpecies = await Species.findAll({where: { species: newSpecies}})
 
-    await story.setSpecies(harvestedSpecies, { through: { harvested: newHarvestNum}})
+    for (let i = 0; i < newSpeciesHarvestNum.length; i++) {
+        console.log('-----------------' + i + '-----------------')
+        const harvestedSpecies = await Species.findAll({where: { species: newSpeciesHarvestNum[i].species}})
+        console.log(harvestedSpecies)
+        await story.setSpecies(harvestedSpecies, { through: { harvested: newSpeciesHarvestNum[i].harvested}})
+       
+        
+    }
+    
 
     let hunts = await Hunts.findAll()
 
@@ -69,12 +74,7 @@ app.delete('/post/:post', async (req, res) => {
   })
 
   app.put('/edit-post/:species/:harvested/:story/:huntId', async (req, res) => {
-    //   console.log(req.params.huntId)
-    //   console.log(req.params)
-    //   console.log(+req.params.harvested)
-    //   console.log(req.params.story)
 
-      
     let editedSpecies = req.params.species
     let editedHarvested = +req.params.harvested
     let editedStory = req.params.story
@@ -90,17 +90,12 @@ app.delete('/post/:post', async (req, res) => {
         },
     })
     
-    //using editedSpecies, find the Species object that correcsponds to it, save it to a variable
-
-    //then in the HuntSpeciesHarvest.update, you'll reference the above variable's id property for speciesId
-
     await HuntsSpeciesHarvests.update({speciesId: speciesInfo.id, harvested: editedHarvested},{
         where: {
            huntId 
         }
     })
 
-    
     let hunts = await Hunts.findAll()
     for (let i = 0; i < hunts.length; i++) {
         hunts[i].dataValues.species = await hunts[i].getSpecies()

@@ -56,12 +56,12 @@ export default function Home(){
     function onSaveClickHandler(e) {
         e.preventDefault()
         let maBod = {
-            species: speciesHarvestInput.species,
-            harvest: speciesHarvestInput.harvested,
+            speciesHarvest: speciesHarvestInput,
             // species: speciesInput,
             // harvest: harvestInput,
             story: storyInput,
         }
+        console.log(speciesHarvestInput)
     
 
 
@@ -88,6 +88,15 @@ export default function Home(){
         const deleteVal = [...speciesHarvestInput]
         deleteVal.splice(i, 1)
         setSpeciesHarvestInput(deleteVal)
+    }
+
+    function handleAddSpeciesChange(e,i){
+        const {name,value} = e.target
+        //const species = e.target.species
+        //const value = e.target.value
+        const onChangeVal = [...speciesHarvestInput]
+        onChangeVal[i][name] = value
+        setSpeciesHarvestInput(onChangeVal)
     }
 
       return (
