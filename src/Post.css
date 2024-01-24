@@ -1,2 +1,30 @@
+.story {
+    text-align: center;
+    width: 100px;
+    
+}
 
+.card {
+    /* border: 1px solid rgb(5, 26, 251); */
+    
+}
 
+.table {
+  
+}
+
+.top-row > * {
+    text-align: center;
+}
+
+.species-data > * > *{
+    text-align: center;
+    /* not working */
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}

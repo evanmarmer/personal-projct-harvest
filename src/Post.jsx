@@ -61,32 +61,34 @@ const speciesData = props.species.map(speciesObj => (
 
             :<div className= 'card'>
                 <div className= 'card-pic'>
-                    <img className= 'card-img' src='blahhhhhhh'/>
-                    <table>
+                    <img className='card-img' src='https://www.shutterstock.com/image-photo/silhouette-red-deer-stag-mist-600nw-307943279.jpg'/>
+                </div>
+                    <table className="table">
                         <thead>
-                            <tr>
+                            <tr className="top-row">
                                 <th>Species</th>
                                 <th>Harvested</th>
                                 <th>Lifetime Harvest</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="species-data">
                         { speciesData }
                         </tbody>
                         <thead>
                             <tr>
-                                <th>Story</th>
+                                <th className="story" colspan="3">Story</th>
                             </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{ props.story }</td>
+                            <td colspan="3">{ props.story }</td>
                         </tr>
-                        <button onClick={handleDeleteClick}>Delete</button>
-                        <button onClick={handleEditClick}>Edit</button>
+                        <div className="btns">
+                            <button onClick={handleDeleteClick}>Delete</button>
+                            <button onClick={handleEditClick}>Edit</button>
+                        </div>
                         </tbody>
                     </table>
-                </div>
             </div>
         }
         </>

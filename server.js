@@ -1,6 +1,6 @@
 import express from 'express';
 import ViteExpress from 'vite-express';
-import { Species, Hunts, Users, HuntsSpeciesHarvests } from './src/model.js'
+import { Species, Hunts, Users, HuntsSpeciesHarvests, sequelize } from './src/model.js'
 
 let app = express();
 
@@ -36,14 +36,41 @@ app.post('/post', async (req, res) => {
     // console.log(story)
     // console.log(newStory)
 
+    let sqlStringData = ''
+
     for (let i = 0; i < newSpeciesHarvestNum.length; i++) {
-        console.log('-----------------' + i + '-----------------')
-        const harvestedSpecies = await Species.findAll({where: { species: newSpeciesHarvestNum[i].species}})
-        console.log(harvestedSpecies)
-        await story.setSpecies(harvestedSpecies, { through: { harvested: newSpeciesHarvestNum[i].harvested}})
-       
-        
+        // console.log('-----------------' + i + '-----------------')
+        // const harvestedSpecies = await Species.findAll({where: { species: newSpeciesHarvestNum[i].species}})
+        // console.log(harvestedSpecies)
+        // let eraseMe = await story.setSpecies(harvestedSpecies, { through: { harvested: newSpeciesHarvestNum[i].harvested}, reset: false})
+        // story.save()
+        // console.log(eraseMe)
+        let speciesObj = await sequelize.query(`
+            SELECT * FROM species WHERE species = '${newSpeciesHarvestNum[i].species}';
+        `)
+
+        let speciesId
+
+        if (speciesObj[0].length === 0) {
+            let newSpeciesObj = await Species.create({species: newSpeciesHarvestNum[i].species, gameType: 'userCreated'})
+            speciesId = newSpeciesObj.id
+            console.log(newSpeciesObj)
+        } else {
+            speciesId = speciesObj[0][0].id
+        }
+
+        console.log(speciesObj)
+
+        sqlStringData += `(${story.id}, ${speciesId}, ${newSpeciesHarvestNum[i].harvested}, '${(new Date()).toISOString()}', '${(new Date()).toISOString()}'), `
+
     }
+
+    sqlStringData = sqlStringData.substring(0, sqlStringData.length - 2) + ';'
+
+    await sequelize.query(`
+        INSERT INTO "HuntsSpeciesHarvests" ("huntId", "speciesId", harvested, "createdAt", "updatedAt") VALUES 
+        ${sqlStringData}
+    `)
     
 
     let hunts = await Hunts.findAll()
