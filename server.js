@@ -100,13 +100,13 @@ app.delete('/post/:post', async (req, res) => {
     res.status(200).send(hunts)
   })
 
-  app.put('/edit-post/:species/:harvested/:story/:huntId', async (req, res) => {
+  app.put('/edit-post', async (req, res) => {
 
     let editedSpecies = req.params.species
     let editedHarvested = +req.params.harvested
     let editedStory = req.params.story
     let huntId = +req.params.huntId
-    // console.log(editedSpecies)
+    console.log(req.body)
     
     let speciesInfo = await Species.findAll({where: {species: editedSpecies}}) 
     // console.log(speciesInfo)

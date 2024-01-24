@@ -6,13 +6,25 @@ import { useState } from 'react'
 export default function Post(props){
 
     let [isEditing, setIsEditing] = useState(false)
+    const [speciesHarvestInput, setSpeciesHarvestInput] = useState([])
 
     function handleEditClick(){
-        props.setSpeciesInput(props.species[0].species)
-        props.setHarvestInput(props.species[0].HuntsSpeciesHarvests.harvested)
+        console.log('7777777777')
+        console.log(props.species[0].species)
+        console.log('88888888888')
+        console.log(props.species[0].HuntsSpeciesHarvests.harvested)
+        console.log('999999999999')
+        console.log(props.species)
+        console.log('69696969696969696969696')
+
+
+        // props.setSpeciesInput(props.species[0].species)
+        // props.setHarvestInput(props.species[0].HuntsSpeciesHarvests.harvested)
+        props.setSpeciesHarvestInput(props.species)
         props.setStoryInput(props.story)
         setIsEditing(!isEditing)
     }
+    // console.log(props.species)
     
 const speciesData = props.species.map(speciesObj => (
     <tr key= {speciesObj.id}>
@@ -33,24 +45,33 @@ const speciesData = props.species.map(speciesObj => (
     
     function onSaveClick(e){
         e.preventDefault()
-        axios.put(`/edit-post/${props.speciesInput}/${props.harvestInput}/${props.storyInput}/${props.huntId}`)
+        let maBod = {
+            huntId: props.huntId,
+            storyInput: props.storyInput,
+            speciesHarvestInput: props.speciesHarvestInput
+        }
+        axios.put(`/edit-post`, maBod)
         .then((response) => {
             // console.log(response.data);
             setIsEditing(false)
             props.setHarvestPosts(response.data)
         })
     }
-    // console.log(props.species)
+
+    
     return (
         <>
         { isEditing 
             ? <div className="modal">
                 <div className="modal-box">
                     <form>
+                    { speciesHarvestInput.map((shObj) => {
                         <label htmlFor="species">Species</label>
                         <input type="text" value={ props.speciesInput } onChange={(e) => props.setSpeciesInput(e.target.value)} id="species"/><br/>
                         <label htmlFor="harvested">Harvested</label>
                         <input type="text" value={props.harvestInput} onChange={(e) => props.setHarvestInput(e.target.value)} id="harvested"/><br/>
+                         })
+                    }
                         <label htmlFor="story">Story</label>
                         <input type="text" value={props.storyInput} onChange={(e) => props.setStoryInput(e.target.value)} id="story"/><br/>
                         <button onClick={onSaveClick}>Save</button>

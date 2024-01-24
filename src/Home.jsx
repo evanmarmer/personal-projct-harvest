@@ -113,7 +113,7 @@ export default function Home(){
                 harvestPosts={harvestPosts}
                 setHarvestPosts={setHarvestPosts}
                 huntId= {hunt.id}
-                setSpeciesHarvestInput={setSpeciesHarvestInput}
+                // setSpeciesHarvestInput={setSpeciesHarvestInput}
                 // setSpeciesInput={setSpeciesInput}
                 // setHarvestInput={setHarvestInput}
                 setStoryInput={setStoryInput}
