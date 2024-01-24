@@ -9,22 +9,23 @@ export default function Post(props){
     const [speciesHarvestInput, setSpeciesHarvestInput] = useState([])
 
     function handleEditClick(){
-        console.log('7777777777')
-        console.log(props.species[0].species)
-        console.log('88888888888')
-        console.log(props.species[0].HuntsSpeciesHarvests.harvested)
-        console.log('999999999999')
-        console.log(props.species)
-        console.log('69696969696969696969696')
-
-
-        // props.setSpeciesInput(props.species[0].species)
-        // props.setHarvestInput(props.species[0].HuntsSpeciesHarvests.harvested)
-        props.setSpeciesHarvestInput(props.species)
+        setSpeciesHarvestInput(props.species)
         props.setStoryInput(props.story)
         setIsEditing(!isEditing)
     }
     // console.log(props.species)
+
+    function onEditFieldsChange(e, i, property){
+        let newSpeciesHarvestInput = structuredClone(speciesHarvestInput)
+
+        if (property === 'species') {
+            newSpeciesHarvestInput[i].species = e.target.value
+        } else if (property === 'harvested') {
+            newSpeciesHarvestInput[i].HuntsSpeciesHarvests.harvested = e.target.value
+        }
+
+        setSpeciesHarvestInput(newSpeciesHarvestInput)
+    }
     
 const speciesData = props.species.map(speciesObj => (
     <tr key= {speciesObj.id}>
@@ -33,8 +34,6 @@ const speciesData = props.species.map(speciesObj => (
             <td>{props.totalHarvest[speciesObj.species]}</td>
         </tr>
     ));
-    
-
     
     async function handleDeleteClick() {
         // console.log(props.huntId)
@@ -48,8 +47,9 @@ const speciesData = props.species.map(speciesObj => (
         let maBod = {
             huntId: props.huntId,
             storyInput: props.storyInput,
-            speciesHarvestInput: props.speciesHarvestInput
+            speciesHarvestInput: speciesHarvestInput
         }
+        console.log(maBod)
         axios.put(`/edit-post`, maBod)
         .then((response) => {
             // console.log(response.data);
@@ -65,11 +65,15 @@ const speciesData = props.species.map(speciesObj => (
             ? <div className="modal">
                 <div className="modal-box">
                     <form>
-                    { speciesHarvestInput.map((shObj) => {
-                        <label htmlFor="species">Species</label>
-                        <input type="text" value={ props.speciesInput } onChange={(e) => props.setSpeciesInput(e.target.value)} id="species"/><br/>
-                        <label htmlFor="harvested">Harvested</label>
-                        <input type="text" value={props.harvestInput} onChange={(e) => props.setHarvestInput(e.target.value)} id="harvested"/><br/>
+                    { speciesHarvestInput.map((shObj, i) => {
+                        return (
+                        <>
+                            <label htmlFor="species">Species</label>
+                            <input type="text" value={ shObj.species } onChange={(e) => onEditFieldsChange(e, i, 'species')} id="species"/><br/>
+                            <label htmlFor="harvested">Harvested</label>
+                            <input type="text" value={shObj.HuntsSpeciesHarvests.harvested} onChange={(e) => onEditFieldsChange(e, i, 'harvested')} id="harvested"/><br/>
+                        </>
+                            )
                          })
                     }
                         <label htmlFor="story">Story</label>

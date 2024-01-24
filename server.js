@@ -79,7 +79,6 @@ app.post('/post', async (req, res) => {
         hunts[i].dataValues.species = await hunts[i].getSpecies()
     }
     res.send(hunts)
-
 })
 
 app.delete('/post/:post', async (req, res) => {
@@ -102,14 +101,26 @@ app.delete('/post/:post', async (req, res) => {
 
   app.put('/edit-post', async (req, res) => {
 
-    let editedSpecies = req.params.species
-    let editedHarvested = +req.params.harvested
+    for (let i = 0; i < req.body.speciesHarvestInput.length; i++) {
+        // console.log(req.body.speciesHarvestInput[i].HuntsSpeciesHarvests)
+        let editedHarvested = req.body.speciesHarvestInput[i].HuntsSpeciesHarvests.harvested
+        let editedSpecies = req.body.speciesHarvestInput[i].species
+        // console.log(editedHarvested)
+    }
+
+    let speciesInfo = await Species.findAll({where: {species: editedSpecies}}) 
+    // console.log(speciesInfo)
+
+    await HuntsSpeciesHarvests.update({speciesId: speciesInfo.id, harvested: editedHarvested},{
+        where: {
+           huntId 
+        }
+    })
+    
     let editedStory = req.params.story
     let huntId = +req.params.huntId
     console.log(req.body)
     
-    let speciesInfo = await Species.findAll({where: {species: editedSpecies}}) 
-    // console.log(speciesInfo)
     
     await Hunts.update({story: editedStory},{
         where: {
@@ -117,11 +128,6 @@ app.delete('/post/:post', async (req, res) => {
         },
     })
     
-    await HuntsSpeciesHarvests.update({speciesId: speciesInfo.id, harvested: editedHarvested},{
-        where: {
-           huntId 
-        }
-    })
 
     let hunts = await Hunts.findAll()
     for (let i = 0; i < hunts.length; i++) {
