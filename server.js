@@ -101,27 +101,37 @@ app.delete('/post/:post', async (req, res) => {
 
   app.put('/edit-post', async (req, res) => {
 
+      let editedStory = req.body.storyInput
+      let huntId = +req.body.huntId
+        console.log('hunt id', huntId)
+
     for (let i = 0; i < req.body.speciesHarvestInput.length; i++) {
-        // console.log(req.body.speciesHarvestInput[i].HuntsSpeciesHarvests)
-        let editedHarvested = req.body.speciesHarvestInput[i].HuntsSpeciesHarvests.harvested
+        let editedHarvested = +req.body.speciesHarvestInput[i].HuntsSpeciesHarvests.harvested
         let editedSpecies = req.body.speciesHarvestInput[i].species
-        // console.log(editedHarvested)
+        let oldSpeciesName = req.body.speciesHarvestInput[i].oldSpeciesName
+
+        // console.log(req.body.speciesHarvestInput[i])
+        console.log('---------------------------------------------')
+        console.log('editedSpecies', editedSpecies)
+        console.log('editedHarvested', editedHarvested)
+        console.log('old species name', oldSpeciesName)
+
+        let newSpeciesInfo = await Species.findAll({where: {species: editedSpecies}}) 
+        console.log('new species id', newSpeciesInfo[0].id)
+
+        let oldSpeciesInfo = await Species.findAll({where: {species: oldSpeciesName}}) 
+        console.log('old species id', oldSpeciesInfo[0].id)
+    
+        let deleteMe = await HuntsSpeciesHarvests.update({speciesId: newSpeciesInfo[0].id, harvested: editedHarvested},{
+            where: {
+               huntId,
+               speciesId: oldSpeciesInfo[0].id
+            }
+        })
+        // deleteMe.save()
+        console.log('delete me', deleteMe)
     }
 
-    let speciesInfo = await Species.findAll({where: {species: editedSpecies}}) 
-    // console.log(speciesInfo)
-
-    await HuntsSpeciesHarvests.update({speciesId: speciesInfo.id, harvested: editedHarvested},{
-        where: {
-           huntId 
-        }
-    })
-    
-    let editedStory = req.params.story
-    let huntId = +req.params.huntId
-    console.log(req.body)
-    
-    
     await Hunts.update({story: editedStory},{
         where: {
             id: huntId

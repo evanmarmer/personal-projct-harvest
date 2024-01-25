@@ -2,10 +2,16 @@ header {
     text-align: left;
     font-size:20px;
     margin-bottom: 40px;
+    border: 1px solid black;
+    padding: 10px;
+    height:3000px;
+    width:150px;
+    float:left;  
+    position: fixed
   }
 
 header * {
-  display: inline;
+  display: block;
 }
 
 header li {

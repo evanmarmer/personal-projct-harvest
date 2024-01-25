@@ -102,7 +102,7 @@ export default function Home(){
       return (
           <>
         <div className="posts">
-            <button className="newPostBtn" onClick={onNewPostClickHandler}>New Harvest</button>
+            <button className="newPostBtn" onClick={onNewPostClickHandler}>Create New Harvest</button>
             <div>
             { harvestPosts.toReversed().map((hunt) => {
                 return <Post

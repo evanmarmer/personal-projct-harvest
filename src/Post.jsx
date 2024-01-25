@@ -9,7 +9,17 @@ export default function Post(props){
     const [speciesHarvestInput, setSpeciesHarvestInput] = useState([])
 
     function handleEditClick(){
-        setSpeciesHarvestInput(props.species)
+
+        let newSpeciesHarvestInput = structuredClone(props.species)
+
+        for (let i = 0; i < newSpeciesHarvestInput.length; i++) {
+            newSpeciesHarvestInput[i].oldSpeciesName = newSpeciesHarvestInput[i].species
+        }
+
+        console.log('jheyyyyy')
+        console.log(newSpeciesHarvestInput)
+
+        setSpeciesHarvestInput(newSpeciesHarvestInput)
         props.setStoryInput(props.story)
         setIsEditing(!isEditing)
     }
@@ -49,7 +59,7 @@ const speciesData = props.species.map(speciesObj => (
             storyInput: props.storyInput,
             speciesHarvestInput: speciesHarvestInput
         }
-        console.log(maBod)
+        // console.log(maBod)
         axios.put(`/edit-post`, maBod)
         .then((response) => {
             // console.log(response.data);

@@ -1,11 +1,12 @@
 .posts {
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    text-align: center;
 }
 
 form {
     /* display: flex; */
     align-items: center;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .modal {
@@ -40,4 +41,16 @@ form {
     z-index: 3;
     width: 100%;
     height: 100%;
+}
+
+.newPostBtn {
+    margin: auto;
+    padding: 10px;
+    margin-bottom: 40px;
+    margin-top: 40px;
+
+}
+
+body {
+    background-color: antiquewhite;
 }
