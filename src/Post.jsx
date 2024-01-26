@@ -2,6 +2,8 @@ import Home from './Home.jsx';
 import './Post.css';
 import axios from 'axios'
 import { useState } from 'react'
+// import Accordion from 'react-bootstrap/Accordion';
+
 
 export default function Post(props){
 

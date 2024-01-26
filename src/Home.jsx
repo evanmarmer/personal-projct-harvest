@@ -61,7 +61,7 @@ export default function Home(){
             // harvest: harvestInput,
             story: storyInput,
         }
-        console.log(speciesHarvestInput)
+        // console.log(speciesHarvestInput)
     
 
 
@@ -102,7 +102,7 @@ export default function Home(){
       return (
           <>
         <div className="posts">
-            <button className="newPostBtn" onClick={onNewPostClickHandler}>Create New Harvest</button>
+            <button className="newPostBtn" onClick={onNewPostClickHandler}>+</button>
             <div>
             { harvestPosts.toReversed().map((hunt) => {
                 return <Post
