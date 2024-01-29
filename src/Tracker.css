@@ -1,15 +1,19 @@
-table {
-    border-collapse: collapse;
-    width: 40%;
-    margin: 20px auto; /* Center the table on the page */
-  }
+.table {
+  width: 800px !important;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  border: 1px solid black;
+  height: 0px;  /* janky solution for now to make it so rows are a normal height */
+}
 
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
+.th {
+  background-color: rgb(241, 241, 241) !important;
+  margin: 10px;
+  text-align: center;
+}
 
-  th {
-    background-color: #f2f2f2;
-  }
+.tbody {
+  text-align: center;
+}
+

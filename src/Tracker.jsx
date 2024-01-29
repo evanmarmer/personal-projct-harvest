@@ -33,14 +33,14 @@ export default function Tracker(){
 
     return (
         <>
-          <table>
-            <thead>
-              <tr>
-                <th>Species</th>
-                <th>Lifetime Harvest</th>
+          <table className="table">
+            <thead className="thead">
+              <tr className="tr">
+                <th className="th">Species</th>
+                <th className="th">Lifetime Harvest</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="tbody">
             { Object.entries(totalHarvest).map((rowTuple) => {
               return <TrackerRow
                   species={rowTuple[0]}

@@ -4,6 +4,8 @@ import Tracker from './Tracker.jsx'
 import { Link, Outlet } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import harvestLogo from '/harvest-logo2.png'
 
 function App() {
 
@@ -12,13 +14,13 @@ function App() {
   return (
     <>
       <header>
-        <div>Harvest</div>
-        <ul>
+        <img className="img" src={harvestLogo}/>
+      <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link className="links" to="/">Home</Link>
         </li>
         <li>
-          <Link to="/tracker">Tracker</Link>
+          <Link className="links" to="/tracker">Tracker</Link>
         </li>
       </ul>
       </header>

@@ -4,27 +4,78 @@
     
 }
 
-.card {
-    /* border: 1px solid rgb(5, 26, 251); */
-    
+.species-data > * > *{
+    text-align: center;
+   
 }
 
-.table {
-  
+.card {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 80px;
+    position: relative;
 }
 
 .top-row > * {
-    text-align: center;
+    background-color: rgb(241, 241, 241) !important;
+    margin: 10px
 }
 
-.species-data > * > *{
-    text-align: center;
-    /* not working */
+.storyHeader > * {
+    background-color: rgb(241, 241, 241) !important;
 }
 
-.btns {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+.hamburger > *{
+    background-color: transparent !important;
+    position:absolute ;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    border: none !important;
+}
+
+.btn1 {
+    position:absolute ;
+    top: -40px;
+    right: 40px;
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 8px 10px;
+    border: 1px solid #222222;
+    transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
+    background: rgb(241, 241, 241);
+    color: #222222;
+}
+
+.btn2 {
+    position:absolute ;
+    top: -40px;
+    right: 112px;
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 8px 10px;
+    border: 1px solid #222222;
+    transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
+    background: rgb(241, 241, 241);
+    color: #222222;
+}
+
+.card-img {
+    width: 200px;
+    height: 550px;
+}
+
+div.accordion {
+    --bs-accordion-btn-focus-box-shadow: none;
 }

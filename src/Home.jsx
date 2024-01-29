@@ -126,7 +126,7 @@ export default function Home(){
             </div>
         </div>
         {isMakingPost &&
-        <div className="modal">
+        <div className="modal-wrapper">
             <div className="modal-box">
              <form>
                 <label htmlFor="img">Upload Image</label>

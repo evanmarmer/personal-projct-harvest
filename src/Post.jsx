@@ -2,7 +2,12 @@ import Home from './Home.jsx';
 import './Post.css';
 import axios from 'axios'
 import { useState } from 'react'
-// import Accordion from 'react-bootstrap/Accordion';
+import Accordion from 'react-bootstrap/Accordion';
+import Carousel from 'react-bootstrap/Carousel';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+
+
 
 
 export default function Post(props){
@@ -18,8 +23,8 @@ export default function Post(props){
             newSpeciesHarvestInput[i].oldSpeciesName = newSpeciesHarvestInput[i].species
         }
 
-        console.log('jheyyyyy')
-        console.log(newSpeciesHarvestInput)
+        // console.log('jheyyyyy')
+        // console.log(newSpeciesHarvestInput)
 
         setSpeciesHarvestInput(newSpeciesHarvestInput)
         props.setStoryInput(props.story)
@@ -74,7 +79,7 @@ const speciesData = props.species.map(speciesObj => (
     return (
         <>
         { isEditing 
-            ? <div className="modal">
+            ? <div className="modal-wrapper">
                 <div className="modal-box">
                     <form>
                     { speciesHarvestInput.map((shObj, i) => {
@@ -97,9 +102,33 @@ const speciesData = props.species.map(speciesObj => (
             </div>
 
             :<div className= 'card'>
-                <div className= 'card-pic'>
-                    <img className='card-img' src='https://www.shutterstock.com/image-photo/silhouette-red-deer-stag-mist-600nw-307943279.jpg'/>
-                </div>
+                <DropdownButton className="hamburger"
+                    align="end"
+                    title=""
+                    id="dropdown-menu-align-end"
+                >
+                    <Dropdown.Item eventKey="1">
+                        <div className="btns">
+                            <button className="btn1" onClick={handleDeleteClick}>Delete</button>
+                            <button className="btn2" onClick={handleEditClick}>Edit</button>
+                        </div>
+                    </Dropdown.Item>
+                </DropdownButton>
+                <Carousel interval={null}>
+                    <Carousel.Item>
+                        <img className='card-img' src='https://www.shutterstock.com/image-photo/silhouette-red-deer-stag-mist-600nw-307943279.jpg'/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img className='card-img' src='https://projectupland.com/wp-content/uploads/2020/11/A-Guide-to-Pheasant-Hunting-in-North-America-1600x1290.jpg'/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img className='card-img' src='https://images.ctfassets.net/pujs1b1v0165/2jodACsV7Pa57M6wWHVI2R/7d10fbf6d4f189ad34f5619170c0ad85/public_land_deer_hunting.jpg?w=1280'/>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img className='card-img' src='https://images.newrepublic.com/ac4bb53a9544ef31698db7d960c759add238cd60.jpeg'/>
+                    </Carousel.Item>
+                </Carousel>
+
                     <table className="table">
                         <thead>
                             <tr className="top-row">
@@ -111,21 +140,15 @@ const speciesData = props.species.map(speciesObj => (
                         <tbody className="species-data">
                         { speciesData }
                         </tbody>
-                        <thead>
-                            <tr>
-                                <th className="story" colspan="3">Story</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td colspan="3">{ props.story }</td>
-                        </tr>
-                        <div className="btns">
-                            <button onClick={handleDeleteClick}>Delete</button>
-                            <button onClick={handleEditClick}>Edit</button>
-                        </div>
-                        </tbody>
                     </table>
+                        <Accordion>
+                           <Accordion.Item eventKey="0">
+                               <Accordion.Header className='storyHeader'>Story</Accordion.Header>
+                                   <Accordion.Body>
+                                           <div colSpan="3">{ props.story }</div>
+                                   </Accordion.Body>
+                                </Accordion.Item>
+                           </Accordion>
             </div>
         }
         </>

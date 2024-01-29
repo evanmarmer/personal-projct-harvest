@@ -6,6 +6,7 @@ import {RouterProvider, Route, createBrowserRouter, createRoutesFromElements} fr
 import Tracker from './Tracker.jsx'
 import Home from './Home.jsx'
 
+
 const router = createBrowserRouter(
   createRoutesFromElements(
 
